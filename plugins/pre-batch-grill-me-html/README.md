@@ -15,7 +15,9 @@ The page embeds the dependency graph:
   answer to X — needs revisiting" — with only a comment box left editable.
   Comments never lock anything. Re-picking the recommendation unlocks.
 - A **clean pass** returns one prompt with every answer; the agent then presents
-  a final synthesis for explicit confirmation.
+  a final synthesis, **auto-confirms** (no confirmation ask), and opens a
+  **GitHub planning issue** in the working repo that includes a **branch name**
+  for the work. This skill never implements — planner only.
 - A **deviated pass** returns DEVIATIONS / IMPACTED / CONFIRMED sections; the
   agent settles what survived, re-runs pre-generation on the invalidated part of
   the tree, and opens the next pass. Repeat until clean.

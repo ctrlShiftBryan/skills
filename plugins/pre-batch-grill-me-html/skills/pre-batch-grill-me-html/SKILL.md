@@ -1,6 +1,6 @@
 ---
 name: pre-batch-grill-me-html
-description: Pre-generate an entire dependency-aware design interview and deliver it as one all-rounds HTML form. Walks the recommended-answer path to full depth up-front (research included), embeds the dependency graph so deviations lock their downstream questions live in the page, and loops rebuild passes until a clean pass closes on confirmed shared understanding. Use only when the user explicitly invokes `pre-batch-grill-me-html`, says "pre-batch grill me", or clearly asks for this exact pre-generated HTML grilling workflow; do not start it during ordinary planning or clarification.
+description: Pre-generate an entire dependency-aware design interview and deliver it as one all-rounds HTML form. Walks the recommended-answer path to full depth up-front (research included), embeds the dependency graph so deviations lock their downstream questions live in the page, and loops rebuild passes until a clean pass auto-confirms and opens a GitHub planning issue with a branch name. Use only when the user explicitly invokes `pre-batch-grill-me-html`, says "pre-batch grill me", or clearly asks for this exact pre-generated HTML grilling workflow; do not start it during ordinary planning or clarification.
 disable-model-invocation: true
 ---
 
@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Reach a genuinely shared understanding by treating the problem as a decision tree — but instead of interviewing one frontier per turn, pre-generate the **whole interview** by assuming the recommended answer at every step, and deliver all rounds as one HTML form. The form knows the dependency graph: when the user deviates from a recommendation, every question that assumed it locks itself, and the returned prompt tells you exactly what to rebuild.
 
-Do not implement, publish, or otherwise act on the resulting design until a clean pass returns and the user explicitly confirms the final shared understanding.
+This skill is a **planner only**. Never implement, code, refactor, open PRs with implementation, or otherwise build the resulting design. The only write action after a clean pass is creating a GitHub planning issue (with a branch name) in the working repo.
 
 ## 1. Frame the design tree
 
@@ -92,9 +92,18 @@ The page enforces the design so the returned prompt is trustworthy:
 
 Treat comments as authoritative when they conflict with a selection; a conflicting comment on a confirmed answer can reopen its subtree even though the form did not lock it.
 
-**Clean pass** (no deviations, no impacted): present a concise final synthesis — goal and boundaries, decisions and consequences, exclusions and deferred work, remaining risks — and ask the user to confirm the shared understanding. Do not begin implementation in the same turn.
+**Clean pass** (no deviations, no impacted):
 
-**Deviated pass**: 
+1. Present a concise final synthesis — goal and boundaries, decisions and consequences, exclusions and deferred work, remaining risks.
+2. **Auto-confirm** the shared understanding. Do **not** ask the user to confirm, and do **not** wait for a confirmation turn.
+3. Immediately create a **GitHub issue** in the repository this grilling was working in (detect from the in-scope project: `git remote get-url origin`, the open workspace, or conversation context). If the repo cannot be determined confidently, say so and stop — do not post to a guessed repo.
+4. Choose a **branch name** for the planned work (kebab-case from the topic/goal, e.g. `feat/short-topic-slug`). Put it in the issue body under a clear heading such as `## Branch` so implementers know which branch to use.
+5. Issue contents (via `gh issue create` unless the environment already has an equivalent GitHub write path):
+   - **Title**: short planning title from the topic (e.g. `Plan: <topic>`).
+   - **Body**: the final synthesis, plus the branch name, plus enough settled-decision context that someone can implement from the issue alone.
+6. End by linking the created issue. Do **not** implement anything after posting.
+
+**Deviated pass**:
 
 1. Move CONFIRMED and DEVIATIONS decisions to settled (deviations settle with their new answers).
 2. Rebuild the invalidated part of the tree: re-run steps 2–3 for the impacted and still-open branches, honoring every comment left on locked questions.
