@@ -22,7 +22,7 @@ npx skills add ctrlShiftBryan/skills -g --all    # everything
 | [`pre-batch-grill-me-html`](plugins/pre-batch-grill-me-html) | skill | Pre-generate a whole dependency-aware design interview as one all-rounds HTML form, with deviations locking downstream questions live. |
 | [`worktrees`](plugins/worktrees) | skill | Bryan's git worktree conventions (`gw`/`gwct`/`gwb`/`gwl`) — sibling `<repo>-worktrees/<branch>` layout, create from main repo on main, remote-branch checkout with tracking, merged-only cleanup that also deletes the branch. |
 | [`zoom-out`](plugins/zoom-out) | skill | Manually zoom out one abstraction level and map the relevant modules and callers using the project's domain glossary vocabulary. |
-| [`copilot`](plugins/copilot) | skills ×3 | Delegate work to GitHub Copilot CLI (gpt-5.6-sol) — `copilot-implementation` (scoped changes via `copilot -p`), `copilot-review` (independent diff review), `copilot-adversarial-review` (challenge review attacking approach, design, and assumptions). |
+| [`copilot`](plugins/copilot) | skill | `copilot-adversarial-review` — GitHub Copilot CLI (gpt-5.6-sol) challenge review attacking approach, design, and assumptions. |
 | [`adversarial-review`](plugins/adversarial-review) | skill | Review the current branch against `main`, retrieve any open pull request with `gh`, and challenge the change's approach, design, tradeoffs, and assumptions. |
 
 ## Plugins (subagents only)
