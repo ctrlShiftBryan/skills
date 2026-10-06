@@ -7,8 +7,7 @@
 #                   [--explainer-dir NAME] [--publish-cmd CMD]
 #                   [--no-bootstrap] [--no-pages] [--force]
 #
-# Self-contained: the bundled asset templates live next to this script (../assets),
-# so it works whether the skill is installed as a plugin or as a standalone skill.
+# Self-contained: the bundled asset templates live next to this script (../assets).
 #
 # Requires: git, and (for the turnkey Pages/branch steps) the `gh` CLI,
 # authenticated, with a GitHub `origin` remote you can push to.
@@ -39,8 +38,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Resolve bundled assets relative to THIS script (../assets), independent of
-# CLAUDE_PLUGIN_ROOT — so it works the same installed as a plugin or standalone.
+# Resolve bundled assets relative to THIS script (../assets).
 skill_root="$(cd "$(dirname "$0")/.." && pwd)"
 assets="$skill_root/assets"
 

@@ -2,11 +2,10 @@
 
 ## Adding Skills
 
-When adding a skill under `plugins/<plugin>/skills/`, always complete the plugin packaging in the same change:
+Skills install with `npx skills`, not the Claude Code plugin system. When adding a skill:
 
-- Create or update `plugins/<plugin>/.claude-plugin/plugin.json`.
-- Add or update the plugin entry in `.claude-plugin/marketplace.json`.
-- Add or update the plugin in the root `README.md` plugin table.
+- Put it at `plugins/<name>/skills/<skill>/SKILL.md`. Give it a distinctive `name` (installs flat into `~/.claude/skills/`, so avoid generic names like `review`).
+- Add or update the row in the root `README.md` Skills table.
 - Verify `npx skills@latest add ctrlShiftBryan/skills --list` discovers the new skill without `--full-depth`.
 
-Do not consider a new skill complete until all four checks pass.
+Do not add `.claude-plugin/plugin.json` or a `marketplace.json` entry for skills. Plugins are only for things `npx skills` can't install (subagents, e.g. `datadog-fetcher`).

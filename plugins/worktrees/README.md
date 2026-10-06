@@ -15,8 +15,7 @@ The aliases themselves are interactive shell functions, so the skill tells Claud
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/skills
-/plugin install worktrees@ctrlshiftbryan-skills
+npx skills add ctrlShiftBryan/skills -g --skill worktrees
 ```
 
 ## Components

@@ -4,19 +4,17 @@ Installs the AI PR-explainer GitHub Action into a target repository. Every PR ge
 
 ## Components
 
-- `/pr-explainer:install` — command that runs the bundled installer against the current repo (flags: `--target`, `--base`, `--ai-branch`, `--explainer-dir`, `--publish-cmd`, `--no-bootstrap`, `--no-pages`, `--force`).
-- `install-pr-explainer` — skill (natural-language trigger) that copies the workflow + check/publish scripts + docs, bootstraps the orphan docs branch, enables GitHub Pages, and fills in the repo-specific config.
+- `install-pr-explainer` — skill that copies the workflow + check/publish scripts + docs, bootstraps the orphan docs branch, enables GitHub Pages, and fills in the repo-specific config. Installer flags: `--target`, `--base`, `--ai-branch`, `--explainer-dir`, `--publish-cmd`, `--no-bootstrap`, `--no-pages`, `--force`.
 
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/skills
-/plugin install pr-explainer@ctrlshiftbryan-skills
+npx skills add ctrlShiftBryan/skills -g --skill install-pr-explainer
 ```
 
 ## Usage
 
-Run `/pr-explainer:install` (or ask to "install / set up / add the pr-explainer action") from inside the target repo. Default `--target` is the current directory; pass it explicitly to install elsewhere. The installer is idempotent — re-running is safe; existing files are skipped unless `--force`.
+Ask Claude to "install / set up / add the pr-explainer action" from inside the target repo. Default `--target` is the current directory; pass it explicitly to install elsewhere. The installer is idempotent — re-running is safe; existing files are skipped unless `--force`.
 
 It sets up:
 

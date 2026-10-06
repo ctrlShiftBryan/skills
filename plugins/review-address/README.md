@@ -9,8 +9,7 @@ Replies to **every** PR review comment — GitHub Copilot, other review bots, an
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/skills
-/plugin install review-address@ctrlshiftbryan-skills
+npx skills add ctrlShiftBryan/skills -g --skill review-address
 ```
 
 ## Usage

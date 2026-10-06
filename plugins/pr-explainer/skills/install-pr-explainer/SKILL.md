@@ -1,6 +1,6 @@
 ---
 name: install-pr-explainer
-description: Install the AI PR-explainer GitHub Action into a repository — a sticky-comment nag bot + commit-status gate that wants an AI-generated HTML "explainer" for every PR, plus the publish path that serves it from GitHub Pages. The installer copies the workflow + check/publish scripts + docs, bootstraps an orphan ai-docs branch, enables GitHub Pages, and fills in the repo-specific config. This is a MANUAL, user-invoked setup skill — use it ONLY when the user explicitly asks to install / set up / add the pr-explainer action (or runs /pr-explainer:install). Do NOT trigger it automatically from general talk about PRs, CI, code review, or explainers.
+description: Install the AI PR-explainer GitHub Action into a repository — a sticky-comment nag bot + commit-status gate that wants an AI-generated HTML "explainer" for every PR, plus the publish path that serves it from GitHub Pages. The installer copies the workflow + check/publish scripts + docs, bootstraps an orphan ai-docs branch, enables GitHub Pages, and fills in the repo-specific config. This is a MANUAL, user-invoked setup skill — use it ONLY when the user explicitly asks to install / set up / add the pr-explainer action. Do NOT trigger it automatically from general talk about PRs, CI, code review, or explainers.
 ---
 
 # Install pr-explainer
@@ -16,7 +16,6 @@ Explicit, manual invocation only:
 
 - "install the pr-explainer action" / "set up pr-explainer" / "add the PR
   explainer bot to this repo"
-- the user runs `/pr-explainer:install`
 
 This skill mutates the user's GitHub repo (creates a branch, enables Pages,
 posts a status check), so it should never fire on its own. If the user is just
@@ -39,8 +38,8 @@ A two-part system (see `references/architecture.md` for the full design):
 ## Approach
 
 The installer and all template files are bundled **inside this skill
-directory** (`scripts/install.sh` + `assets/`), so the skill is self-contained
-whether it was installed as a plugin or as a standalone skill. Run the bundled
+directory** (`scripts/install.sh` + `assets/`), so the skill is self-contained.
+Run the bundled
 script by its absolute path — use this skill's own base directory (shown to you
 when the skill loads), not a hardcoded path:
 
@@ -50,12 +49,8 @@ Tell the user what you're about to do, then run:
 ```
 
 `<this-skill-dir>` is the directory containing this SKILL.md. The script
-resolves its templates relative to itself, so do **not** depend on
-`${CLAUDE_PLUGIN_ROOT}` (it is unset for standalone-skill installs). If you are
-running inside the plugin, that same file is also at
-`${CLAUDE_PLUGIN_ROOT}/skills/install-pr-explainer/scripts/install.sh`, and the
-`/pr-explainer:install` command runs it for you. Default `--target` is the
-current directory; pass it explicitly to install elsewhere.
+resolves its templates relative to itself. Default `--target` is the current
+directory; pass it explicitly to install elsewhere.
 
 Before running, sanity-check the prerequisites below and tell the user what the
 install will do to their GitHub repo (branch + Pages are real, outward-facing

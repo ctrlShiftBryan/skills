@@ -1,39 +1,21 @@
 #!/usr/bin/env bash
-# Local verification gate for the pr-explainer plugin. Run from repo root.
+# Local verification gate for the install-pr-explainer skill. Run from repo root.
 # Exits non-zero on any failure so it can gate trunk commits.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
-P=plugins/pr-explainer
-S=$P/skills/install-pr-explainer   # the skill dir — scripts + assets are bundled here
+S=plugins/pr-explainer/skills/install-pr-explainer   # the skill dir — scripts + assets are bundled here
 fails=0
 pass(){ printf '  \033[32mPASS\033[0m %s\n' "$1"; }
 fail(){ printf '  \033[31mFAIL\033[0m %s\n' "$1"; fails=$((fails+1)); }
 sec(){ printf '\n== %s ==\n' "$1"; }
 
-sec "A. JSON validity"
-jq -e . .claude-plugin/marketplace.json >/dev/null 2>&1 && pass "marketplace.json parses" || fail "marketplace.json invalid"
-jq -e . "$P/.claude-plugin/plugin.json" >/dev/null 2>&1 && pass "plugin.json parses" || fail "plugin.json invalid"
-# marketplace entry exists + points at the plugin dir
-jq -e '.plugins[]|select(.name=="pr-explainer" and .source=="./plugins/pr-explainer")' \
-  .claude-plugin/marketplace.json >/dev/null 2>&1 \
-  && pass "marketplace lists pr-explainer -> ./plugins/pr-explainer" || fail "marketplace entry missing/wrong"
-
-sec "B. plugin.json <-> marketplace agreement (claude plugin tag --dry-run)"
-if command -v claude >/dev/null 2>&1; then
-  out="$(claude plugin tag --dry-run --force "$P" 2>&1)"
-  rc=$?
-  if [[ $rc -eq 0 ]]; then pass "tag validation: ${out//$'\n'/ }"; else fail "tag validation rc=$rc: ${out//$'\n'/ }"; fi
-else
-  fail "claude CLI not found"
-fi
-
-sec "C. shellcheck (error severity gates)"
+sec "A. shellcheck (error severity gates)"
 for s in "$S/scripts/install.sh" "$S/assets/.github/scripts/pr-explainer-check.sh" "$S/assets/scripts/explainer-publish.sh"; do
   if shellcheck -S error "$s" >/dev/null 2>&1; then pass "no errors: $s"; else fail "shellcheck errors: $s"; fi
 done
 
-sec "D. frontmatter + required fields"
-python3 - "$P/skills/install-pr-explainer/SKILL.md" "$P/commands/install.md" <<'PY'
+sec "B. SKILL.md frontmatter"
+python3 - "$S/SKILL.md" <<'PY'
 import sys,re
 def fm(path):
     t=open(path).read()
@@ -44,20 +26,16 @@ def fm(path):
         if ':' in line:
             k,v=line.split(':',1); d[k.strip()]=v.strip()
     return d
-skill=fm(sys.argv[1]); cmd=fm(sys.argv[2]); ok=True
+skill=fm(sys.argv[1]); ok=True
 if skill and skill.get('name')=='install-pr-explainer' and skill.get('description'):
     print("  PASS SKILL.md frontmatter: name+description present")
 else:
     print("  FAIL SKILL.md frontmatter"); ok=False
-if cmd and cmd.get('description'):
-    print("  PASS command frontmatter: description present")
-else:
-    print("  FAIL command frontmatter"); ok=False
 sys.exit(0 if ok else 1)
 PY
 [[ $? -eq 0 ]] || fails=$((fails+1))
 
-sec "E. installer matrix (throwaway repos)"
+sec "C. installer matrix (throwaway repos)"
 mk(){
   local d; d="$(mktemp -d)"
   (
@@ -109,7 +87,7 @@ left="$(grep -rhoE '__[A-Z_]+__' "$d6/.github" "$d6/scripts" 2>/dev/null | grep 
 
 rm -rf "$d1" "$d2" "$d3" "$d4" "$d6"
 
-sec "F. skill is self-contained (standalone-skill install — issue #2)"
+sec "D. skill is self-contained (standalone-skill install — issue #2)"
 selfok=1
 [[ -f "$S/scripts/install.sh" ]] || { fail "install.sh not bundled in skill dir"; selfok=0; }
 for t in .github/workflows/pr-explainer.yml .github/scripts/pr-explainer-check.sh \
@@ -118,10 +96,6 @@ for t in .github/workflows/pr-explainer.yml .github/scripts/pr-explainer-check.s
   [[ -f "$S/assets/$t" ]] || { fail "missing bundled template: assets/$t"; selfok=0; }
 done
 [[ $selfok -eq 1 ]] && pass "install.sh + 5 templates bundled under the skill dir"
-# the plugin command must point at the relocated script
-grep -q 'skills/install-pr-explainer/scripts/install.sh' "$P/commands/install.md" \
-  && pass "plugin command points at the bundled script" \
-  || fail "command path not updated for relocated script"
 
 sec "RESULT"
 if [[ $fails -eq 0 ]]; then printf '\033[32mALL CHECKS PASSED\033[0m\n'; exit 0; else printf '\033[31m%d CHECK(S) FAILED\033[0m\n' "$fails"; exit 1; fi

@@ -11,8 +11,7 @@ Delegate work from Claude Code to the Codex CLI (gpt-5.5). Three skills cover th
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/skills
-/plugin install codex-delegation@ctrlshiftbryan-skills
+npx skills add ctrlShiftBryan/skills -g --skill codex-implementation codex-review codex-computer-use
 ```
 
 ## Usage
