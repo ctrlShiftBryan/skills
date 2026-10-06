@@ -1,9 +1,0 @@
-{
-  "name": "pr-explainer",
-  "version": "0.2.0",
-  "description": "Install the AI PR-explainer GitHub Action into a repository (manual, user-invoked setup). Drops the nag workflow + check/publish scripts, bootstraps an orphan ai-docs branch, enables GitHub Pages, and wires up the repo-specific config so every PR gets a sticky 🔴/🟡/🟢 'explainer' comment + commit-status gate linking an AI-generated HTML walkthrough published to Pages. Invoke explicitly with /pr-explainer:install or by asking to install/set up/add the pr-explainer action — it does not trigger automatically from general PR, CI, or code-review conversation.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

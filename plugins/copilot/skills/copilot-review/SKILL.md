@@ -1,5 +1,5 @@
 ---
-name: review
+name: copilot-review
 description: Ask GitHub Copilot CLI (gpt-5.6-sol) for an independent code review of uncommitted changes, a branch diff, a commit, or a specific implementation. This is how Copilot is invoked for review work. Use when the user asks Claude to have Copilot review work, when a third-model perspective is wanted alongside or instead of Codex, or when Copilot should audit a diff, find bugs or regressions, or compare an implementation against requirements. For a review by Claude itself, use the normal review process instead.
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: copilot-adversarial-review
-description: Ask GitHub Copilot CLI (gpt-5.6-sol) for an adversarial review that challenges the implementation approach, design choices, tradeoffs, and assumptions of uncommitted changes, a branch diff, or a commit. Use when the user wants a challenge review, a skeptical second opinion, a "try to break this" pass, or asks whether a change should ship — not just a defect scan. For a normal independent review, use the copilot review skill instead.
+description: Ask GitHub Copilot CLI (gpt-5.6-sol) for an adversarial review that challenges the implementation approach, design choices, tradeoffs, and assumptions of uncommitted changes, a branch diff, or a commit. Use when the user wants a challenge review, a skeptical second opinion, a "try to break this" pass, or asks whether a change should ship — not just a defect scan. For a normal independent review, use the copilot-review skill instead.
 ---
 
 # Copilot Adversarial Review

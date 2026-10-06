@@ -1,9 +1,0 @@
-{
-  "name": "zoom-out",
-  "version": "0.1.0",
-  "description": "Manually ask the agent to zoom out one level of abstraction and map the relevant modules and callers using the project's domain glossary vocabulary.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

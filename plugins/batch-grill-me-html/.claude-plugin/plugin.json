@@ -1,9 +1,0 @@
-{
-  "name": "batch-grill-me-html",
-  "version": "0.2.0",
-  "description": "Run an explicit, dependency-aware design interview in HTML rounds. Maps the problem as a decision tree, researches facts instead of asking the user, opens every currently unblocked question in one self-contained form with recommended answers preselected and optional sandboxed HTML mockups for visual decisions, and repeats until the frontier is empty and the user confirms shared understanding.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "name": "adversarial-review",
-  "version": "0.1.0",
-  "description": "Review the current branch against main, use any open GitHub pull request as context, and challenge the change's approach, design, tradeoffs, and assumptions.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "name": "post-review-as-bot",
-  "version": "0.1.1",
-  "description": "Post a code review to a GitHub PR as inline comments attributed to a GitHub App (a \"[bot]\" account) instead of the human running the command. The agent writes the review JSON; the bundled, app-agnostic script validates each comment against the PR diff, composes a Copilot-style body, mints an installation token from the app's private key, and submits one atomic COMMENT review. Bot identity is supplied entirely via env vars. Triggers on 'post a review as the bot', 'post the review as a GitHub App'.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "name": "review-address",
-  "version": "0.1.0",
-  "description": "Reply to every PR review comment — from GitHub Copilot, other review bots, and human reviewers — with code fixes or reasoned push-backs. Fetches all comments via the GitHub API, triages each one, fixes code, commits, and posts an inline reply to every comment. Triggers on 'address the review', 'reply to the comments', 'handle the PR feedback', 'address Copilot's review', 'respond to review comments'.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

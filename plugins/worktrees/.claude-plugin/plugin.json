@@ -1,9 +1,0 @@
-{
-  "name": "worktrees",
-  "version": "0.1.0",
-  "description": "Bryan's git worktree workflow (his gw, gwct, gwb, gwl zsh aliases). Use whenever the task involves git worktrees in any way - creating a worktree, starting a new branch to work in parallel, checking out an existing or remote branch into a worktree, getting back to the main repo from a worktree, listing worktrees, or cleaning up merged worktrees and their branches. Trigger even on casual phrasing like 'new worktree for X', 'work on X in a worktree', 'spin up a branch for this', or 'clean up my worktrees'.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "name": "questionnaire",
-  "version": "0.1.0",
-  "description": "Batch 3+ clarifying questions into a local HTML questionnaire — recommended answers pre-checked, radio/checkbox options with an 'Other' free-text, per-question comment boxes, and a 'Copy prompt' button that serializes all answers into one paste-back prompt. 1-2 questions stay in chat, one per turn; at ~3+ the skill builds the form instead of serial grilling. Triggers on 'ask me your questions', 'what do you need to know', 'make a questionnaire', or whenever several clarifying questions accumulate during planning or grilling.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

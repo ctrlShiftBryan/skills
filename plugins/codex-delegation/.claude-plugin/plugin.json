@@ -1,9 +1,0 @@
-{
-  "name": "codex-delegation",
-  "version": "0.1.0",
-  "description": "Delegate work to Codex CLI (gpt-5.5) from Claude Code — three skills covering the delegation surface: codex-implementation (scoped code changes via `codex exec`, Claude reviews the diff), codex-review (independent code review of uncommitted changes, branch diffs, or commits via `codex review`), and codex-computer-use (local runtime verification needing browsers, simulators, screenshots, or app launching via `codex exec` with full access). Triggers on 'use codex', 'have gpt-5.5 do it', 'get a codex review', 'have codex verify this in the browser/simulator'.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "name": "copilot",
-  "version": "0.1.0",
-  "description": "Delegate work to GitHub Copilot CLI (gpt-5.6-sol) from Claude Code — three skills covering the delegation surface: implementation (scoped code changes via `copilot -p`, Claude reviews the diff), review (independent code review of uncommitted changes, branch diffs, or commits), and adversarial-review (a challenge review that attacks the approach, design choices, and assumptions — the Copilot counterpart of /codex:adversarial-review). Triggers on 'use copilot', 'have copilot review this', 'copilot adversarial review', 'challenge this change'.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

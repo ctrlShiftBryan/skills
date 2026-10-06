@@ -1,5 +1,5 @@
 ---
-name: implementation
+name: copilot-implementation
 description: Ask GitHub Copilot CLI (gpt-5.6-sol) to implement scoped code changes in the current repository, then have Claude inspect the resulting diff and verification. This is how Copilot is invoked for implementation work. Use when the user asks Claude to delegate implementation to Copilot, when a third coding agent's patch is wanted alongside or instead of Codex, or when a bounded task would benefit from another agent producing the change.
 ---
 
