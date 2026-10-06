@@ -11,7 +11,7 @@ Why: Datadog MCP responses are huge. Running them through a Haiku sub-agent keep
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install datadog-fetcher@ctrlshiftbryan-skills
 ```
 

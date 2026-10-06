@@ -13,7 +13,7 @@ Install and run the [Ralph Wiggum](https://www.aihero.dev/getting-started-with-r
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install ralph@ctrlshiftbryan-skills
 ```
 

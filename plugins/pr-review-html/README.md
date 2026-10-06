@@ -9,7 +9,7 @@ Generate a single self-contained, interactive HTML code-review artifact for a Gi
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install pr-review-html@ctrlshiftbryan-skills
 ```
 

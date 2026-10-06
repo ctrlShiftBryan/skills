@@ -10,7 +10,7 @@ Installs the AI PR-explainer GitHub Action into a target repository. Every PR ge
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install pr-explainer@ctrlshiftbryan-skills
 ```
 

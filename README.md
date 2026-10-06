@@ -27,14 +27,14 @@ Bryan's personal Claude Code plugins and skills.
 ### Claude Code (full plugin — commands + skill + agent)
 
 ```
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install ralph@ctrlshiftbryan-skills
 ```
 
 ### skills.sh (skill only — natural-language trigger)
 
 ```
-npx skills add ctrlShiftBryan/ctrlshiftbryan-skills
+npx skills add ctrlShiftBryan/skills
 ```
 
 ## Layout

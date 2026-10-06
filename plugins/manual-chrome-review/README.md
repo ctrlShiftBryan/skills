@@ -9,7 +9,7 @@ Verify a running web app feature in a real Chrome session by combining the user'
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install manual-chrome-review@ctrlshiftbryan-skills
 ```
 

@@ -23,7 +23,7 @@ After the answers are pasted back, the agent updates the tree and opens the next
 ## Install
 
 ```text
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install batch-grill-me-html@ctrlshiftbryan-skills
 ```
 

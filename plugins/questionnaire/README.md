@@ -23,7 +23,7 @@ Self-contained single file — no network, dark-mode aware, clipboard fallback f
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install questionnaire@ctrlshiftbryan-skills
 ```
 

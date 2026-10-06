@@ -9,7 +9,7 @@ An auto-delegating Haiku sub-agent that offloads Figma MCP read calls out of the
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install figma-fetcher@ctrlshiftbryan-skills
 ```
 

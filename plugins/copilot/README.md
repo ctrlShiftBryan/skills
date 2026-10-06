@@ -11,7 +11,7 @@ Delegate work from Claude Code to GitHub Copilot CLI (gpt-5.6-sol). Three skills
 ## Install
 
 ```
-/plugin marketplace add ctrlShiftBryan/ctrlshiftbryan-skills
+/plugin marketplace add ctrlShiftBryan/skills
 /plugin install copilot@ctrlshiftbryan-skills
 ```
 
