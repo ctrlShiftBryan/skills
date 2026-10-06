@@ -1,9 +1,0 @@
-{
-  "name": "ralph",
-  "version": "0.1.0",
-  "description": "Install and run the Ralph Wiggum agentic loop (claude/codex) in any project. Adds ralph/once.sh + ralph/afk.sh, package.json scripts, and the prompt/state-file scaffolding.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

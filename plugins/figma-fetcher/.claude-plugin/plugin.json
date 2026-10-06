@@ -1,9 +1,0 @@
-{
-  "name": "figma-fetcher",
-  "version": "0.1.0",
-  "description": "Auto-delegating Haiku sub-agent that offloads Figma MCP read calls (get_design_context, get_screenshot, get_metadata, get_variable_defs, get_code_connect_map) out of the main conversation. Caches the full payload to tmp/figma/{fileKey}__{nodeId}.json plus a sibling .png and returns a small markdown digest. Read-only; requires the official Figma MCP server.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "name": "pr-review-html",
-  "version": "0.1.0",
-  "description": "Generate a single-file interactive HTML code-review artifact for a GitHub PR. Fetches the diff via gh, performs an honest severity-coded self-review, and renders a portable artifact with collapsible per-file diffs, colored inline annotations, severity filter chips, per-finding checkboxes, and a 'Create feedback prompt' modal that aggregates checked items into a paste-ready follow-up prompt. Triggers on 'review this PR', 'build a PR review', 'review PR #N', 'code review artifact', 'interactive review', 'feedback prompt for a PR'.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}

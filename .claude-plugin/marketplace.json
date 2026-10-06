@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "pr-explainer",
-      "description": "Install the AI PR-explainer GitHub Action into a repository (manual, user-invoked setup). Drops the nag workflow + check/publish scripts, bootstraps an orphan ai-docs branch, enables GitHub Pages, and wires up the repo-specific config so every PR gets a sticky \ud83d\udd34/\ud83d\udfe1/\ud83d\udfe2 'explainer' comment + commit-status gate linking an AI-generated HTML walkthrough published to Pages. Invoke explicitly with /pr-explainer:install or by asking to install/set up/add the pr-explainer action \u2014 it does not trigger automatically from general PR, CI, or code-review conversation.",
+      "description": "Install the AI PR-explainer GitHub Action into a repository (manual, user-invoked setup). Drops the nag workflow + check/publish scripts, bootstraps an orphan ai-docs branch, enables GitHub Pages, and wires up the repo-specific config so every PR gets a sticky 🔴/🟡/🟢 'explainer' comment + commit-status gate linking an AI-generated HTML walkthrough published to Pages. Invoke explicitly with /pr-explainer:install or by asking to install/set up/add the pr-explainer action — it does not trigger automatically from general PR, CI, or code-review conversation.",
       "version": "0.2.0",
       "author": {
         "name": "Bryan Arendt",
@@ -20,54 +20,14 @@
       "source": "./plugins/pr-explainer"
     },
     {
-      "name": "ralph",
-      "description": "Install and run the Ralph Wiggum agentic loop (claude/codex) in any project. Adds ralph/once.sh + ralph/afk.sh, package.json scripts, and the prompt/state-file scaffolding.",
-      "version": "0.1.0",
-      "author": {
-        "name": "Bryan Arendt",
-        "github": "ctrlShiftBryan"
-      },
-      "source": "./plugins/ralph"
-    },
-    {
-      "name": "manual-chrome-review",
-      "description": "Verify a running web app in a real Chrome session by combining user-driven keyboard/mouse input with Claude-driven DOM, network, WebSocket, and server-side inspection. Triggers on 'manual chrome review', 'verify in browser', 'manually test feature', 'live browser session', 'walk through my app in chrome', 'review the new feature'.",
-      "version": "0.1.0",
-      "author": {
-        "name": "Bryan Arendt",
-        "github": "ctrlShiftBryan"
-      },
-      "source": "./plugins/manual-chrome-review"
-    },
-    {
-      "name": "pr-review-html",
-      "description": "Generate a single-file interactive HTML code-review artifact for a GitHub PR. Fetches the diff via gh, performs an honest severity-coded self-review (critical/major/minor/nit/praise), and renders a portable artifact with collapsible per-file diffs, colored inline annotations, severity filter chips, per-finding checkboxes, and a 'Create feedback prompt' modal that aggregates checked items into a paste-ready follow-up prompt. Triggers on 'review this PR', 'build a PR review', 'review PR #N', 'code review artifact', 'interactive review', 'feedback prompt for a PR'.",
-      "version": "0.1.0",
-      "author": {
-        "name": "Bryan Arendt",
-        "github": "ctrlShiftBryan"
-      },
-      "source": "./plugins/pr-review-html"
-    },
-    {
       "name": "review-address",
-      "description": "Reply to every PR review comment \u2014 from GitHub Copilot, other review bots, and human reviewers \u2014 with code fixes or reasoned push-backs. Fetches all comments via the GitHub API, triages each one, fixes code, commits, and posts an inline reply to every comment. Triggers on 'address the review', 'reply to the comments', 'handle the PR feedback', 'address Copilot's review', 'respond to review comments'.",
+      "description": "Reply to every PR review comment — from GitHub Copilot, other review bots, and human reviewers — with code fixes or reasoned push-backs. Fetches all comments via the GitHub API, triages each one, fixes code, commits, and posts an inline reply to every comment. Triggers on 'address the review', 'reply to the comments', 'handle the PR feedback', 'address Copilot's review', 'respond to review comments'.",
       "version": "0.1.0",
       "author": {
         "name": "Bryan Arendt",
         "github": "ctrlShiftBryan"
       },
       "source": "./plugins/review-address"
-    },
-    {
-      "name": "figma-fetcher",
-      "description": "Offload Figma MCP read calls to a Haiku-powered sub-agent to cut token cost. Auto-delegates whenever a figma.com URL appears or any Figma read tool (get_design_context, get_screenshot, get_metadata, get_variable_defs, get_code_connect_map) would be called. Fetches all five tools in one shot, caches the result at tmp/figma/{fileKey}__{nodeId}.json plus a sibling .png, and returns a small markdown digest to the main conversation. Read-only \u2014 write tools (use_figma, create_new_file, generate_figma_design) stay in the main agent. Requires the official Figma MCP server.",
-      "version": "0.1.0",
-      "author": {
-        "name": "Bryan Arendt",
-        "github": "ctrlShiftBryan"
-      },
-      "source": "./plugins/figma-fetcher"
     },
     {
       "name": "post-review-as-bot",
@@ -81,7 +41,7 @@
     },
     {
       "name": "codex-delegation",
-      "description": "Delegate work to Codex CLI (gpt-5.5) from Claude Code \u2014 three skills covering the delegation surface: codex-implementation (scoped code changes via `codex exec`, Claude reviews the diff), codex-review (independent code review of uncommitted changes, branch diffs, or commits via `codex review`), and codex-computer-use (local runtime verification needing browsers, simulators, screenshots, or app launching via `codex exec` with full access). Triggers on 'use codex', 'have gpt-5.5 do it', 'get a codex review', 'have codex verify this in the browser/simulator'.",
+      "description": "Delegate work to Codex CLI (gpt-5.5) from Claude Code — three skills covering the delegation surface: codex-implementation (scoped code changes via `codex exec`, Claude reviews the diff), codex-review (independent code review of uncommitted changes, branch diffs, or commits via `codex review`), and codex-computer-use (local runtime verification needing browsers, simulators, screenshots, or app launching via `codex exec` with full access). Triggers on 'use codex', 'have gpt-5.5 do it', 'get a codex review', 'have codex verify this in the browser/simulator'.",
       "version": "0.1.0",
       "author": {
         "name": "Bryan Arendt",
@@ -91,7 +51,7 @@
     },
     {
       "name": "questionnaire",
-      "description": "Batch 3+ clarifying questions into a local HTML questionnaire \u2014 recommended answers pre-checked, radio/checkbox options with an 'Other' free-text, per-question comment boxes, and a 'Copy prompt' button that serializes all answers into one paste-back prompt. 1-2 questions stay in chat, one per turn; at ~3+ the skill builds the form instead of serial grilling. Triggers on 'ask me your questions', 'what do you need to know', 'make a questionnaire', or whenever several clarifying questions accumulate during planning or grilling.",
+      "description": "Batch 3+ clarifying questions into a local HTML questionnaire — recommended answers pre-checked, radio/checkbox options with an 'Other' free-text, per-question comment boxes, and a 'Copy prompt' button that serializes all answers into one paste-back prompt. 1-2 questions stay in chat, one per turn; at ~3+ the skill builds the form instead of serial grilling. Triggers on 'ask me your questions', 'what do you need to know', 'make a questionnaire', or whenever several clarifying questions accumulate during planning or grilling.",
       "version": "0.1.0",
       "author": {
         "name": "Bryan Arendt",
@@ -141,7 +101,7 @@
     },
     {
       "name": "copilot",
-      "description": "Delegate work to GitHub Copilot CLI (gpt-5.6-sol) \u2014 implementation (scoped changes via `copilot -p`), review (independent diff review), and copilot-adversarial-review (challenge review attacking the approach, design choices, and assumptions).",
+      "description": "Delegate work to GitHub Copilot CLI (gpt-5.6-sol) — implementation (scoped changes via `copilot -p`), review (independent diff review), and copilot-adversarial-review (challenge review attacking the approach, design choices, and assumptions).",
       "version": "0.1.0",
       "author": {
         "name": "Bryan Arendt",
@@ -161,7 +121,7 @@
     },
     {
       "name": "datadog-fetcher",
-      "description": "Offload Datadog MCP read calls to a Haiku-powered sub-agent to cut token cost. Auto-delegates whenever the main agent would query Datadog logs, metrics, monitors, traces/spans, events, hosts, services, dashboards, incidents, RUM, or notebooks. Runs the minimum set of read queries, saves full raw payloads to tmp/datadog/<timestamp>-<slug>.json, and returns a capped (~500-token) markdown summary with numbers, timestamps, example IDs, and caveats. Read-only \u2014 notebook/dashboard writes and auth/setup stay in the main agent. Requires the official datadog plugin's MCP server.",
+      "description": "Offload Datadog MCP read calls to a Haiku-powered sub-agent to cut token cost. Auto-delegates whenever the main agent would query Datadog logs, metrics, monitors, traces/spans, events, hosts, services, dashboards, incidents, RUM, or notebooks. Runs the minimum set of read queries, saves full raw payloads to tmp/datadog/<timestamp>-<slug>.json, and returns a capped (~500-token) markdown summary with numbers, timestamps, example IDs, and caveats. Read-only — notebook/dashboard writes and auth/setup stay in the main agent. Requires the official datadog plugin's MCP server.",
       "version": "0.1.0",
       "author": {
         "name": "Bryan Arendt",

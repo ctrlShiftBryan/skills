@@ -1,9 +1,0 @@
-{
-  "name": "manual-chrome-review",
-  "version": "0.1.0",
-  "description": "Verify a running web app in a real Chrome session by combining user-driven keyboard/mouse input with Claude-driven DOM, network, WebSocket, and server-side inspection. Triggers on 'manual chrome review', 'verify in browser', 'manually test feature', 'live browser session', 'walk through my app in chrome', 'review the new feature'.",
-  "author": {
-    "name": "Bryan Arendt",
-    "github": "ctrlShiftBryan"
-  }
-}
