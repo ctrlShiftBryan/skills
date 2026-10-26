@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Reach a genuinely shared understanding by treating the problem as a decision tree — but instead of interviewing one frontier per turn, pre-generate the **whole interview** by assuming the recommended answer at every step, and deliver all rounds as one HTML form. The form knows the dependency graph: when the user deviates from a recommendation, every question that assumed it locks itself, and the returned prompt tells you exactly what to rebuild.
 
-Do not implement, publish, or otherwise act on the resulting design until a clean pass returns and the user explicitly confirms the final shared understanding.
+Do not implement, publish, or otherwise act on the resulting design until a clean pass returns and the user confirms the final shared understanding; confirmation then runs the hand-off in step 8.
 
 ## 1. Frame the design tree
 
@@ -92,7 +92,9 @@ The page enforces the design so the returned prompt is trustworthy:
 
 Treat comments as authoritative when they conflict with a selection; a conflicting comment on a confirmed answer can reopen its subtree even though the form did not lock it.
 
-**Clean pass** (no deviations, no impacted): present a concise final synthesis — goal and boundaries, decisions and consequences, exclusions and deferred work, remaining risks — and ask the user to confirm the shared understanding. Do not begin implementation in the same turn.
+**Clean pass** (no deviations, no impacted): present a concise final synthesis — goal and boundaries, decisions and consequences, exclusions and deferred work, remaining risks — and end the turn with:
+
+> Reply **confirm implement** to file this plan and hand it to an Opus coordinator that builds it while you're away, or **confirm later** to file it and stop here.
 
 **Deviated pass**: 
 
@@ -100,3 +102,25 @@ Treat comments as authoritative when they conflict with a selection; a conflicti
 2. Rebuild the invalidated part of the tree: re-run steps 2–3 for the impacted and still-open branches, honoring every comment left on locked questions.
 3. Open pass `n+1` as a new all-rounds form. Settled decisions go in the settled panel and do not reappear as editable questions.
 4. Repeat until a pass comes back clean, then close as above.
+
+## 8. Confirm and hand off
+
+Read the reply to the final synthesis:
+
+- **confirm implement** → steps 1, 2, 3.
+- **confirm later** → steps 1, 2, 4.
+- **confirm** / **confirmed** alone → ask "Implement now, or later?" and run nothing until the answer names one.
+- A change to the plan → it is a deviation: rebuild and open the next pass.
+
+1. **Plan doc.** Write one self-contained, visual HTML page of the confirmed plan: goal and boundaries, every decision with its consequence (grouped by round), exclusions and deferred work, risks, and the implementation as numbered phases. Publish it as a `plans` doc with the repo's `ai-docs` skill (`.claude/skills/ai-docs/SKILL.md`). When the repo has no `.ai-docs.json`, stop and tell the user to run `install-ai-docs` first. Done when the publish script prints the doc URL.
+2. **GitHub issue.** `gh issue create` titled with the plan's title. Body: a three-line summary, the plan doc URL, and a `- [ ]` checklist with one item per phase. For **confirm later**, open the body with `Status: not started — implement later.` Done when `gh` prints the issue URL.
+3. **Implement: start the coordinator.**
+   1. `get_pane` on `$BMUX_PANE_ID` for this pane's project, worker and working directory.
+   2. `create_tab` in that project, named after the plan.
+   3. `create_pane` in the new tab: `kind: terminal`, `provider: claude`, `launchArgs: ["--model", "opus"]`, same worker and working directory. Poll `get_pane` until it is running.
+   4. `send_agent_message` to the new pane:
+      > You are the coordinator. I will be AFK. Implement the plan in `<issue URL>` (full plan: `<doc URL>`). Comment on the issue when you start, after each phase lands (tick its checklist item), on every blocker or judgment call you make without me, and when you finish (with the PR link).
+   5. Reply with the doc URL, issue URL and tab name. Keep this pane open: closing it closes the coordinator it made.
+4. **Later: close.** Reply with the doc URL and issue URL, then `close_pane` on `$BMUX_PANE_ID`.
+
+Outside bmux (`$BMUX_PANE_ID` unset), run steps 1–2, give both URLs, and say the coordinator hand-off and self-close need bmux.

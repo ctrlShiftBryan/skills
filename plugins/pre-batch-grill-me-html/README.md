@@ -15,7 +15,11 @@ The page embeds the dependency graph:
   answer to X — needs revisiting" — with only a comment box left editable.
   Comments never lock anything. Re-picking the recommendation unlocks.
 - A **clean pass** returns one prompt with every answer; the agent then presents
-  a final synthesis for explicit confirmation.
+  a final synthesis for confirmation.
+- **confirm implement** publishes a visual HTML plan to `ai-docs`, opens a GitHub
+  issue linking it, and starts an Opus coordinator in a new bmux tab that builds
+  the plan and keeps the issue updated. **confirm later** files the plan and issue,
+  then closes the pane. A bare **confirm** asks which.
 - A **deviated pass** returns DEVIATIONS / IMPACTED / CONFIRMED sections; the
   agent settles what survived, re-runs pre-generation on the invalidated part of
   the tree, and opens the next pass. Repeat until clean.
