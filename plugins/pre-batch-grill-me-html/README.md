@@ -16,7 +16,7 @@ The page embeds the dependency graph:
   Comments never lock anything. Re-picking the recommendation unlocks.
 - A **clean pass** returns one prompt with every answer; the agent then presents
   a final synthesis for confirmation.
-- **confirm implement** publishes a visual HTML plan to `ai-docs`, opens a GitHub
+- **confirm implement** pushes a visual HTML plan to the `ai-docs` branch, opens a GitHub
   issue linking it, and starts an Opus coordinator in a new bmux tab that builds
   the plan and keeps the issue updated. **confirm later** files the plan and issue,
   then closes the pane. A bare **confirm** asks which.

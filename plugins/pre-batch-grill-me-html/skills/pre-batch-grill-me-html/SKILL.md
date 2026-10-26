@@ -114,7 +114,12 @@ Read the reply to the final synthesis:
 Read intent, not exact words: "confirmed", "yes, implement", "build it now" and "go, I'm AFK" pick implement; "later", "park it" pick later.
 - A change to the plan → it is a deviation: rebuild and open the next pass.
 
-1. **Plan doc.** Write one self-contained, visual HTML page of the confirmed plan: goal and boundaries, every decision with its consequence (grouped by round), exclusions and deferred work, risks, and the implementation as numbered phases. Publish it as a `plans` doc by following the `ai-docs` skill of the repo being planned (`.claude/skills/ai-docs/SKILL.md`; its publish command is in there). When that repo has no `.ai-docs.json`, stop and tell the user to run `install-ai-docs` first. Done when the publish script prints the doc URL.
+1. **Plan doc.** Write one self-contained, visual HTML page of the confirmed plan: goal and boundaries, every decision with its consequence (grouped by round), exclusions and deferred work, risks, and the implementation as numbered phases. Push it to the `ai-docs` branch of the repo being planned, at `plans/<YYYY-MM-DD>-<slug>.html`:
+   - The repo has an `ai-docs` skill (`.claude/skills/ai-docs/SKILL.md`): publish through it.
+   - Otherwise: commit the file on `ai-docs` and push it. Use the repo's existing `ai-docs` worktree (`git worktree list`), or a throwaway one (`git worktree add <tmp> origin/ai-docs`, removed after). The doc URL is `https://github.com/<owner>/<repo>/blob/ai-docs/plans/<file>`.
+   - `origin` has no `ai-docs` branch: stop and ask the user.
+
+   Done when the push succeeds and you have the doc URL.
 2. **GitHub issue.** `gh issue create` in the repo being planned, titled with the plan's title. Body: a three-line summary, the plan doc URL, and a `- [ ]` checklist with one item per phase. For **confirm later**, open the body with `Status: not started — implement later.` Done when `gh` prints the issue URL.
 3. **Implement: start the coordinator.**
    1. `get_pane` on your own pane (the bmux pane ID your system prompt names) for its tab, worker and working directory; `list_tabs` gives that tab's project.
