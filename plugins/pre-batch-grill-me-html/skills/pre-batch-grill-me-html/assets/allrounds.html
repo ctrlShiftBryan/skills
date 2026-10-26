@@ -376,8 +376,6 @@ const SETTLED_IDS = new Set(__SETTLED_IDS_JSON__);
 // questions. Later rounds were generated assuming the recommended answer to
 // every earlier question — that assumption is what deviation-locking protects.
 const ROUNDS = __ROUNDS_JSON__;
-// The pane running this interview when opened inside browser-mux (else null).
-const TARGET_PANE = __TARGET_PANE_JSON__;
 
 document.getElementById('topic').textContent = TOPIC;
 
@@ -720,19 +718,11 @@ document.getElementById('closeDialog').addEventListener('click', () => {
   document.getElementById('fallback').close();
 });
 
-// Hand the pass back without the clipboard when this form is rendered in a
-// browser-mux web pane. The host exposes `bmuxArtifact` on the parent window
-// and only same-origin pages — the ones browser-mux itself serves — can read
-// it, so a cross-origin parent throws here and the clipboard path stays.
-const bmuxHost = (() => {
-  try {
-    if (!TARGET_PANE || window.parent === window) return null;
-    const api = window.parent.bmuxArtifact;
-    return api && typeof api.submitPrompt === 'function' ? api : null;
-  } catch (error) {
-    return null;
-  }
-})();
+// Hand the answers straight back to the agent that opened this form, without the
+// clipboard, when bmux opened it as a page on a worker: bmux's grill-forms page
+// plugin gives such a page `window.bmuxHandBack`. Anywhere else it is undefined,
+// the buttons stay hidden and Copy prompt is the whole handoff.
+const bmuxHost = typeof window.bmuxHandBack === 'function' ? window.bmuxHandBack : null;
 
 if (bmuxHost) {
   const sendBtn = document.getElementById('sendBtn');
@@ -754,13 +744,7 @@ if (bmuxHost) {
     button.textContent = 'Sending…';
     let outcome;
     try {
-      outcome = await bmuxHost.submitPrompt({
-        source: window,
-        targetPaneId: TARGET_PANE,
-        text: buildPrompt(),
-        submit,
-        closeSelf: true,
-      });
+      outcome = await bmuxHost({ text: buildPrompt(), submit, closeSelf: true });
     } catch (error) {
       outcome = { ok: false, error: String(error) };
     }

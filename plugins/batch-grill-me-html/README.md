@@ -17,6 +17,7 @@ Each form includes:
 - An answered counter and a top-level **Copy prompt** button that copies all answers and additional comments as one paste-back prompt
 - A visible instruction to paste the copied prompt back into the chat session
 - A clipboard fallback for local `file://` pages
+- In bmux, opened as a page on a worker (`open_file` with `worker: true`): **Send to agent** and **Prefill composer**, which hand the answers straight back to the agent that opened the form and close it
 
 After the answers are pasted back, the agent updates the tree and opens the next frontier. When no branches remain, it presents the shared understanding and waits for explicit confirmation before acting.
 

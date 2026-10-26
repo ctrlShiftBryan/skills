@@ -112,8 +112,6 @@ Read `assets/round.html` from this skill's directory and replace every placehold
 - `__SETTLED_JSON__`: a JSON array of concise settled-decision strings, or `[]`
 - `__SETTLED_IDS_JSON__`: a JSON array of decision IDs settled before this round, or `[]`
 - `__QUESTIONS_JSON__`: the complete frontier as JSON
-- `__TARGET_PANE_JSON__`: the pane this session runs in, as a JSON string, when
-  the environment variable `BMUX_PANE_ID` is set; otherwise the literal `null`
 
 The template rejects a question when its prerequisites are missing, unsettled, or present in the same frontier; do not remove or bypass that validation.
 
@@ -145,17 +143,20 @@ Example question data:
 
 JSON-encode all substituted values. Do not allow the literal string `</script>` in inserted content because it would terminate the template's inline script. Mockup HTML makes this easy to violate accidentally, so serialize `__QUESTIONS_JSON__` with `<`, `>`, and `&` escaped as `\u003c`, `\u003e`, and `\u0026` (for example `json.dumps(questions).replace('<', '\\u003c').replace('>', '\\u003e')` after escaping `&`); the JSON decodes to identical strings at runtime and the HTML parser never sees a closing tag.
 
-Write the result to `/tmp/batch-grill-me-html-<topic-slug>-round-<n>.html` and open it with the platform's local file opener (`open` on macOS, `xdg-open` on Linux). If opening is unavailable, give the user the path.
+Write the result to `/tmp/batch-grill-me-html-<topic-slug>-round-<n>.html`. Keep the `batch-grill-me-html-` prefix: bmux recognizes the form by that name. Open it:
+
+- **In bmux** (the bmux MCP tools are available, or `bmux` is on `PATH`): call `open_file` with the path and `worker: true`, or run `bmux open --worker <path>`. The form opens as a page on your pane's worker, beside your pane, and can hand the answers straight back (below).
+- **Anywhere else**: open it with the platform's local file opener (`open` on macOS, `xdg-open` on Linux). If opening is unavailable, give the user the path.
 
 The top of the page must contain a **Copy prompt** button. It must aggregate every selected answer, every `Other` value, and every non-empty additional comment into one prompt and copy that prompt to the clipboard, with a manual-copy fallback when clipboard access is unavailable.
 
 The form must visibly tell the user to complete the round, click **Copy prompt**, and paste the copied prompt back into this chat. Do not rely on the button label or clipboard contents to imply the handoff.
 
-### Direct hand-back inside browser-mux
+### Direct hand-back in bmux
 
-When `BMUX_PANE_ID` is set, the form is rendered in a browser-mux web pane beside this session, and the round can come back without the clipboard. The template then reveals two more buttons — **Send to agent**, which submits the answers as the next turn, and **Prefill composer**, which stages them in the prompt box for editing — and closes its own pane once either lands. Both call `window.parent.bmuxArtifact.submitPrompt`, which only same-origin pages can reach; anywhere else the buttons stay hidden and **Copy prompt** is the whole handoff.
+Opened with `open_file` and `worker: true`, the form is a page on a worker that bmux's `grill-forms` page plugin matches, and the page has `window.bmuxHandBack`. The template then reveals two more buttons: **Send to agent**, which submits the answers as your next turn, and **Prefill composer**, which leaves them in your prompt box for editing. Either one closes the form's pane once it lands. Whoever answers (a person, or another agent driving the page with browser tools) needs no pane id: bmux hands the answers to the pane that opened the form. Anywhere else `window.bmuxHandBack` is undefined, the buttons stay hidden, and **Copy prompt** is the whole handoff.
 
-Fill `__TARGET_PANE_JSON__` with that pane id so the buttons appear. Keep **Copy prompt** in every form regardless: it is the fallback when delivery fails.
+Keep **Copy prompt** in every form regardless: it is the fallback when delivery fails (a hand-back takes at most 4096 characters).
 
 End every round with this exact response structure, filling in the round number:
 

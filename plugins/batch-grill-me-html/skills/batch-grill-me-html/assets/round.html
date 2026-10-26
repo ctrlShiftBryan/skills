@@ -319,10 +319,6 @@ const TOPIC = __TOPIC__;
 const SETTLED = __SETTLED_JSON__;
 const SETTLED_IDS = new Set(__SETTLED_IDS_JSON__);
 const QUESTIONS = __QUESTIONS_JSON__;
-// The pane running this interview, when the form was opened inside browser-mux
-// (null everywhere else). It is what lets the round be handed straight back to
-// the agent instead of through the clipboard.
-const TARGET_PANE = __TARGET_PANE_JSON__;
 
 const questionsRoot = document.getElementById('questions');
 document.getElementById('topic').textContent = TOPIC;
@@ -518,19 +514,11 @@ document.getElementById('closeDialog').addEventListener('click', () => {
   document.getElementById('fallback').close();
 });
 
-// Hand the round back without the clipboard when this form is rendered in a
-// browser-mux web pane. The host exposes `bmuxArtifact` on the parent window
-// and only same-origin pages — the ones browser-mux itself serves — can read
-// it, so a cross-origin parent throws here and the clipboard path stays.
-const bmuxHost = (() => {
-  try {
-    if (!TARGET_PANE || window.parent === window) return null;
-    const api = window.parent.bmuxArtifact;
-    return api && typeof api.submitPrompt === 'function' ? api : null;
-  } catch (error) {
-    return null;
-  }
-})();
+// Hand the answers straight back to the agent that opened this form, without the
+// clipboard, when bmux opened it as a page on a worker: bmux's grill-forms page
+// plugin gives such a page `window.bmuxHandBack`. Anywhere else it is undefined,
+// the buttons stay hidden and Copy prompt is the whole handoff.
+const bmuxHost = typeof window.bmuxHandBack === 'function' ? window.bmuxHandBack : null;
 
 if (bmuxHost) {
   const sendBtn = document.getElementById('sendBtn');
@@ -551,13 +539,7 @@ if (bmuxHost) {
     button.textContent = 'Sending…';
     let outcome;
     try {
-      outcome = await bmuxHost.submitPrompt({
-        source: window,
-        targetPaneId: TARGET_PANE,
-        text: buildPrompt(),
-        submit,
-        closeSelf: true,
-      });
+      outcome = await bmuxHost({ text: buildPrompt(), submit, closeSelf: true });
     } catch (error) {
       outcome = { ok: false, error: String(error) };
     }

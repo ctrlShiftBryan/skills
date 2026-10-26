@@ -64,13 +64,17 @@ Read `assets/allrounds.html` from this skill's directory and replace every place
 - `__SETTLED_JSON__`: JSON array of concise settled-decision strings, or `[]`
 - `__SETTLED_IDS_JSON__`: JSON array of decision IDs settled before this pass, or `[]`
 - `__ROUNDS_JSON__`: the whole interview as a JSON **array of rounds**, each an array of question objects
-- `__TARGET_PANE_JSON__`: the value of `$BMUX_PANE_ID` as a JSON string when set, else the literal `null`
 
 Keep the template's validation: it rejects duplicate IDs, unknown prerequisites, same-round prerequisites, and forward references — do not bypass it.
 
 JSON-encode all substituted values, and serialize `__ROUNDS_JSON__` (and `__TOPIC__`) with `&`, `<`, `>` escaped as `\u0026`, `\u003c`, `\u003e` so no `</script>` can terminate the inline script (mockup HTML makes this easy to violate). Example: `json.dumps(rounds).replace('&','\\u0026').replace('<','\\u003c').replace('>','\\u003e')`.
 
-Write the result to `/tmp/pre-batch-grill-me-html-<topic-slug>-pass-<n>.html` and open it (prefer `bm-open` / the `bm-open-html` skill when inside browser-mux; otherwise the platform opener). After generating, verify the inline script parses — e.g. extract it and run `node --check` — before opening.
+Write the result to `/tmp/pre-batch-grill-me-html-<topic-slug>-pass-<n>.html` (keep the `pre-batch-grill-me-html-` prefix: bmux recognizes the form by that name). After generating, verify the inline script parses — e.g. extract it and run `node --check` — before opening. Open it:
+
+- **In bmux** (the bmux MCP tools are available, or `bmux` is on `PATH`): call `open_file` with the path and `worker: true`, or run `bmux open --worker <path>`. The form opens as a page on your pane's worker, beside your pane. bmux's `grill-forms` page plugin gives it `window.bmuxHandBack`, so the form shows **Send to agent** (your next turn) and **Prefill composer** (your prompt box), hands the answers straight to your pane with no pane id, and closes itself once they land. Whoever answers may be a person or another agent driving the page with browser tools.
+- **Anywhere else**: the platform opener. The hand-back buttons stay hidden and **Copy prompt** is the handoff.
+
+Keep **Copy prompt** in every form: it is the fallback when delivery fails (a hand-back takes at most 4096 characters).
 
 End the turn with:
 
