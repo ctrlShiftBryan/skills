@@ -115,12 +115,12 @@ Read the reply to the final synthesis:
 1. **Plan doc.** Write one self-contained, visual HTML page of the confirmed plan: goal and boundaries, every decision with its consequence (grouped by round), exclusions and deferred work, risks, and the implementation as numbered phases. Publish it as a `plans` doc with the repo's `ai-docs` skill (`.claude/skills/ai-docs/SKILL.md`). When the repo has no `.ai-docs.json`, stop and tell the user to run `install-ai-docs` first. Done when the publish script prints the doc URL.
 2. **GitHub issue.** `gh issue create` titled with the plan's title. Body: a three-line summary, the plan doc URL, and a `- [ ]` checklist with one item per phase. For **confirm later**, open the body with `Status: not started — implement later.` Done when `gh` prints the issue URL.
 3. **Implement: start the coordinator.**
-   1. `get_pane` on `$BMUX_PANE_ID` for this pane's project, worker and working directory.
+   1. `get_pane` on your own pane (the bmux pane ID your system prompt names) for its tab, worker and working directory; `list_tabs` gives that tab's project.
    2. `create_tab` in that project, named after the plan.
    3. `create_pane` in the new tab: `kind: terminal`, `provider: claude`, `launchArgs: ["--model", "opus"]`, same worker and working directory. Poll `get_pane` until it is running.
    4. `send_agent_message` to the new pane:
       > You are the coordinator. I will be AFK. Implement the plan in `<issue URL>` (full plan: `<doc URL>`). Comment on the issue when you start, after each phase lands (tick its checklist item), on every blocker or judgment call you make without me, and when you finish (with the PR link).
    5. Reply with the doc URL, issue URL and tab name. Keep this pane open: closing it closes the coordinator it made.
-4. **Later: close.** Reply with the doc URL and issue URL, then `close_pane` on `$BMUX_PANE_ID`.
+4. **Later: close.** Reply with the doc URL and issue URL, then `close_pane` on your own pane.
 
-Outside bmux (`$BMUX_PANE_ID` unset), run steps 1–2, give both URLs, and say the coordinator hand-off and self-close need bmux.
+Outside bmux (no bmux tools), run steps 1–2, give both URLs, and say the coordinator hand-off and self-close need bmux.
