@@ -1,3 +1,6 @@
+Mode: tools
+Workflow: trunk
+
 # Repository Rules
 
 ## Adding Skills
