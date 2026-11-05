@@ -45,7 +45,6 @@ ctrlshiftbryan-skills/
 ├── .claude-plugin/
 │   └── marketplace.json     ← plugin listing (subagents only)
 ├── claude/
-│   ├── CLAUDE.md            ← versioned copy of my global ~/.claude/CLAUDE.md
 │   ├── statusline.sh        ← custom status bar script (setup in claude/README.md)
 │   └── README.md
 └── plugins/

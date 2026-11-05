@@ -1,9 +1,6 @@
 # claude/
 
-Versioned copies of my global `~/.claude/` config.
-
-- `CLAUDE.md` — global instructions for all projects
-- `statusline.sh` — custom status bar script
+A versioned copy of my Claude Code status bar script, `statusline.sh`. Global instructions live in my private agent kit.
 
 ## Status bar
 
