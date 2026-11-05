@@ -192,4 +192,4 @@ When the frontier is empty, present a concise final synthesis containing:
 3. Explicit exclusions and deferred work
 4. Remaining risks or facts that could invalidate the design
 
-Ask the user to confirm that this is the shared understanding. Do not begin implementation in the same turn. Once they confirm, return control to the user's requested next workflow.
+Ask the user to confirm that this is the shared understanding. Do not begin implementation in the same turn. Once they confirm, return control to the user's requested next workflow. Filing the plan and handing it to a coordinator is the `publish-plan` skill.

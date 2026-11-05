@@ -109,30 +109,8 @@ Treat comments as authoritative when they conflict with a selection; a conflicti
 
 ## 8. Confirm and hand off
 
-Read the reply to the final synthesis:
+A change to the plan in the reply is a deviation: rebuild and open the next pass.
 
-- **confirm implement** → steps 1, 2, 3.
-- **confirm later** → steps 1, 2, 4.
-- **confirm** alone → ask "Implement now, or later?" and run nothing until the answer picks one.
+Any confirmation ("confirm implement", "confirm later", a bare "confirm", "go, I'm AFK") runs the `publish-plan` skill with the confirmed plan, its decisions grouped by round. That skill reads implement or later, files the plan doc and the phase-checklist issue on the repo's forge, then starts the coordinator or closes.
 
-Read intent, not exact words: "confirmed", "yes, implement", "build it now" and "go, I'm AFK" pick implement; "later", "park it" pick later.
-- A change to the plan → it is a deviation: rebuild and open the next pass.
-
-1. **Plan doc.** Write one self-contained, visual HTML page of the confirmed plan: goal and boundaries, every decision with its consequence (grouped by round), exclusions and deferred work, risks, and the implementation as numbered phases. Push it to the `ai-docs` branch of the repo being planned, at `plans/<YYYY-MM-DD>-<slug>.html`:
-   - The repo has an `ai-docs` skill (`.claude/skills/ai-docs/SKILL.md`): publish through it.
-   - Otherwise: commit the file on `ai-docs` and push it. Use the repo's existing `ai-docs` worktree (`git worktree list`), or a throwaway one (`git worktree add <tmp> origin/ai-docs`, removed after). The doc URL is `https://github.com/<owner>/<repo>/blob/ai-docs/plans/<file>`.
-   - `origin` has no `ai-docs` branch: stop and ask the user.
-
-   Done when the push succeeds and you have the doc URL.
-2. **GitHub issue.** `gh issue create` in the repo being planned, titled with the plan's title. Body: a three-line summary, the plan doc URL, and a `- [ ]` checklist with one item per phase. For **confirm later**, open the body with `Status: not started — implement later.` Done when `gh` prints the issue URL.
-3. **Implement: start the coordinator.**
-   1. `get_pane` on your own pane (the bmux pane ID your system prompt names) for its tab, worker and working directory; `list_tabs` gives that tab's project.
-   2. `create_tab` in that project, named after the plan.
-   3. `create_pane` in the new tab: `kind: terminal`, `provider: claude`, `launchArgs: ["--model", "opus"]`, same worker and working directory. Poll `get_pane` until it is running.
-   4. `send_agent_message` to the new pane:
-      > You are the coordinator. I will be AFK. Implement the plan in `<issue URL>` (full plan: `<doc URL>`). Comment on the issue when you start, after each phase lands (tick its checklist item), on every blocker or judgment call you make without me, and when you finish (with the PR link).
-   5. `read_terminal` on the new pane until it shows the coordinator working on the plan; resend once if the message did not land.
-   6. Reply with the doc URL, issue URL and tab name. Keep this pane open: closing it closes the coordinator it made.
-4. **Later: close.** Reply with the doc URL and issue URL, then `close_pane` on your own pane as the final call.
-
-Outside bmux (no bmux tools), run steps 1–2, give both URLs, and say the coordinator hand-off and self-close need bmux.
+Without `publish-plan`: commit one self-contained HTML plan to the repo's `ai-docs` branch at `plans/<YYYY-MM-DD>-<slug>.html`, open an issue with a three-line summary, the doc URL and one `- [ ]` item per phase, and reply with both URLs.

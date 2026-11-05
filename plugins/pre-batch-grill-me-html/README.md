@@ -16,10 +16,11 @@ The page embeds the dependency graph:
   Comments never lock anything. Re-picking the recommendation unlocks.
 - A **clean pass** returns one prompt with every answer; the agent then presents
   a final synthesis for confirmation.
-- **confirm implement** pushes a visual HTML plan to the `ai-docs` branch, opens a GitHub
-  issue linking it, and starts an Opus coordinator in a new bmux tab that builds
-  the plan and keeps the issue updated. **confirm later** files the plan and issue,
-  then closes the pane. A bare **confirm** asks which.
+- **confirm implement** and **confirm later** hand off to the `publish-plan` skill
+  (Bryan's private agent kit): it files a visual HTML plan on `ai-docs` and an issue
+  with a phase checklist on the repo's forge, then starts an Opus coordinator that
+  builds the plan, or stops. Without that skill, the plan doc and issue are filed
+  and both URLs returned.
 - A **deviated pass** returns DEVIATIONS / IMPACTED / CONFIRMED sections; the
   agent settles what survived, re-runs pre-generation on the invalidated part of
   the tree, and opens the next pass. Repeat until clean.
