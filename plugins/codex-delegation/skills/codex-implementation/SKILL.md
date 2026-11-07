@@ -1,6 +1,6 @@
 ---
 name: codex-implementation
-description: Ask Codex CLI (gpt-5.6) to implement scoped code changes in the current repository, then have Claude inspect the resulting diff and verification. This is how gpt-5.6 is invoked for implementation work. Use when the user asks Claude to delegate implementation to Codex or gpt-5.6, or when a bounded task would benefit from another coding agent producing a patch.
+description: Ask the Codex CLI to implement scoped code changes in the current repository, then have Claude inspect the resulting diff and verification. This is how Codex is invoked for implementation work. The model Codex runs is named in the `picking-models` skill, where installed, else `~/.codex/config.toml`. Use when the user asks Claude to delegate implementation to Codex or its model, or when a bounded task would benefit from another coding agent producing a patch.
 ---
 
 # Codex Implementation

@@ -1,6 +1,6 @@
 ---
 name: codex-review
-description: Ask Codex CLI (gpt-5.6) for an independent code review of uncommitted changes, a branch diff, a commit, or a specific implementation. This is how gpt-5.6 is invoked for review work. Use when the user asks Claude to have Codex or gpt-5.6 review work, when an independent second-model review perspective is wanted, or when Codex should audit a diff, find bugs or regressions, or compare Claude's implementation against requirements. For a review by Claude itself, use the normal review process instead.
+description: Ask the Codex CLI for an independent code review of uncommitted changes, a branch diff, a commit, or a specific implementation. This is how Codex is invoked for review work. The model Codex runs is named in the `picking-models` skill, where installed, else `~/.codex/config.toml`. Use when the user asks Claude to have Codex or its model review work, when an independent second-model review perspective is wanted, or when Codex should audit a diff, find bugs or regressions, or compare Claude's implementation against requirements. For a review by Claude itself, use the normal review process instead.
 ---
 
 # Codex Review
