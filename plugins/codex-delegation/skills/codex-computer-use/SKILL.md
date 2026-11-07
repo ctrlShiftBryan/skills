@@ -44,6 +44,20 @@ screenshots, or access outside the repo. For non-GUI checks that only need the r
 artifact directory, prefer `-s workspace-write`. Add `--skip-git-repo-check` when the working
 directory is not a git repository.
 
+## Web Pages on macOS: Google Chrome Through getApp
+
+Where Google Chrome.app is kept for computer use (no person uses it, and no other tool starts it), its Default profile is the agent's browser. Drive it as an app, not through the ChatGPT browser extension.
+
+1. Stray check, before every run: `ps -axo pid,ppid,command | grep "Google Chrome.app/Contents/MacOS/Google Chrome"`. Every Google Chrome shares the app id `com.google.Chrome`, and a headless copy makes `getApp` hang (`-10005 timeoutReached`). Kill a Google Chrome only when it has `--headless` and its parent is gone (ppid 1). Never kill the Default-profile Chrome. Name any other Google Chrome with its own `--user-data-dir` in the report, and leave it running: a tool may own it.
+2. Open Chrome: `open -a "Google Chrome" --args --profile-directory=Default`.
+3. Tell Codex, in the prompt:
+   - Drive Chrome only through `getApp('com.google.Chrome')`. Do not use `getBrowser`, the extension, CDP, Playwright, AppleScript or a remote-debugging port.
+   - Open the page in a new window (Cmd+N, then the URL), and close only that window at the end.
+   - If `getApp` fails or times out, retry once after 10 seconds. Then fall back to Safari (`open -a Safari`, `getApp('com.apple.Safari')`) and say so at the top of the report.
+4. Say in your summary which browser the run used.
+
+Computer use sends clicks, single key presses, scrolling and a left-button drag. It cannot hold a key or a mouse button, so checks that need held input (WASD movement, right-drag, hold-to-fly) come back blocked. Check those another way, or by hand.
+
 ## Prompt Requirements
 
 Tell Codex:
