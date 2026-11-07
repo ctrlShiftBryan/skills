@@ -49,7 +49,7 @@ directory is not a git repository.
 Where Google Chrome.app is kept for computer use (no person uses it, and no other tool starts it), its Default profile is the agent's browser. Drive it as an app, not through the ChatGPT browser extension.
 
 1. Stray check, before every run: `ps -axo pid,ppid,command | grep "Google Chrome.app/Contents/MacOS/Google Chrome"`. Every Google Chrome shares the app id `com.google.Chrome`, and a headless copy makes `getApp` hang (`-10005 timeoutReached`). Kill a Google Chrome only when it has `--headless` and its parent is gone (ppid 1). Never kill the Default-profile Chrome. Name any other Google Chrome with its own `--user-data-dir` in the report, and leave it running: a tool may own it.
-   Also check `ls -d /Volumes/*/"Google Chrome.app"`: a still-mounted Chrome installer makes `getApp` fail with "Ambiguous app identifier". Eject it (`diskutil eject "/Volumes/Google Chrome"`) when nothing runs from it.
+   A second copy of Chrome makes `getApp` fail with "Ambiguous app identifier", and the error names both paths. The usual one is a Chrome installer still mounted in `/Volumes`: eject it (`diskutil eject "/Volumes/Google Chrome"`) when nothing runs from it, then drop its record, which outlives the eject: `/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -u "/Volumes/Google Chrome/Google Chrome.app"`.
 2. Open Chrome: `open -a "Google Chrome" --args --profile-directory=Default`.
 3. Tell Codex, in the prompt:
    - Drive Chrome only through `getApp('com.google.Chrome')`. Do not use `getBrowser`, the extension, CDP, Playwright, AppleScript or a remote-debugging port.
