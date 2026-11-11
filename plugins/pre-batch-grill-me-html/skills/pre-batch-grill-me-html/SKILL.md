@@ -69,16 +69,11 @@ Keep the template's validation: it rejects duplicate IDs, unknown prerequisites,
 
 JSON-encode all substituted values, and serialize `__ROUNDS_JSON__` (and `__TOPIC__`) with `&`, `<`, `>` escaped as `\u0026`, `\u003c`, `\u003e` so no `</script>` can terminate the inline script (mockup HTML makes this easy to violate). Example: `json.dumps(rounds).replace('&','\\u0026').replace('<','\\u003c').replace('>','\\u003e')`.
 
-Write the result to `/tmp/pre-batch-grill-me-html-<topic-slug>-pass-<n>.html` (keep the `pre-batch-grill-me-html-` prefix: bmux recognizes the form by that name). After generating, verify the inline script parses — e.g. extract it and run `node --check` — before opening. Open it:
-
-- **In bmux** (the bmux MCP tools are available, or `bmux` is on `PATH`): call `open_file` with the path and `worker: true`, or run `bmux open --worker <path>`. The form opens as a page on your pane's worker, beside your pane. bmux's `grill-forms` page plugin gives it `window.bmuxHandBack`, so the form shows **Send to agent** (your next turn) and **Prefill composer** (your prompt box), hands the answers straight to your pane with no pane id, and closes itself once they land. Whoever answers may be a person or another agent driving the page with browser tools.
-- **Anywhere else**: the platform opener. The hand-back buttons stay hidden and **Copy prompt** is the handoff.
-
-Keep **Copy prompt** in every form: it is the fallback when delivery fails (a hand-back takes at most 4096 characters).
+Write the result to `/tmp/pre-batch-grill-me-html-<topic-slug>-pass-<n>.html`. After generating, verify the inline script parses — e.g. extract it and run `node --check` — before opening. Open it with the platform's local file opener (`open` on macOS, `xdg-open` on Linux). If opening is unavailable, give the user the path.
 
 End the turn with:
 
-> Pass `<n>` is open — all `<r>` rounds pre-generated on the recommended path. Change anything you disagree with; dependent questions will lock themselves. Then **Send to agent** (or **Copy prompt** and paste it back into this chat).
+> Pass `<n>` is open — all `<r>` rounds pre-generated on the recommended path. Change anything you disagree with; dependent questions will lock themselves. Then **Copy prompt** and paste it back into this chat.
 
 Do not ask more questions while the form is pending.
 

@@ -149,10 +149,7 @@ if ((open_after)); then
     [[ "${rels[$i]}" == *.html ]] || continue
     preview="${TMPDIR:-/tmp}/ai-docs-preview/${rels[$i]}"
     mkdir -p "$(dirname "$preview")" && cp "${files[$i]}" "$preview"
-    bm_open="$(command -v bm-open || echo "${HOME}/.bun/bin/bm-open")"
-    if [[ -n "${BMUX_PANE_ID:-}" && -x "$bm_open" ]] && "$bm_open" "$preview" >/dev/null 2>&1; then
-      echo "Opened in browser-mux: $preview"
-    elif command -v open >/dev/null 2>&1; then
+    if command -v open >/dev/null 2>&1; then
       open "$preview" && echo "Opened: $preview"
     elif command -v xdg-open >/dev/null 2>&1; then
       xdg-open "$preview" >/dev/null 2>&1 && echo "Opened: $preview"

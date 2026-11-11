@@ -143,24 +143,15 @@ Example question data:
 
 JSON-encode all substituted values. Do not allow the literal string `</script>` in inserted content because it would terminate the template's inline script. Mockup HTML makes this easy to violate accidentally, so serialize `__QUESTIONS_JSON__` with `<`, `>`, and `&` escaped as `\u003c`, `\u003e`, and `\u0026` (for example `json.dumps(questions).replace('<', '\\u003c').replace('>', '\\u003e')` after escaping `&`); the JSON decodes to identical strings at runtime and the HTML parser never sees a closing tag.
 
-Write the result to `/tmp/batch-grill-me-html-<topic-slug>-round-<n>.html`. Keep the `batch-grill-me-html-` prefix: bmux recognizes the form by that name. Open it:
-
-- **In bmux** (the bmux MCP tools are available, or `bmux` is on `PATH`): call `open_file` with the path and `worker: true`, or run `bmux open --worker <path>`. The form opens as a page on your pane's worker, beside your pane, and can hand the answers straight back (below).
-- **Anywhere else**: open it with the platform's local file opener (`open` on macOS, `xdg-open` on Linux). If opening is unavailable, give the user the path.
+Write the result to `/tmp/batch-grill-me-html-<topic-slug>-round-<n>.html`. Open it with the platform's local file opener (`open` on macOS, `xdg-open` on Linux). If opening is unavailable, give the user the path.
 
 The top of the page must contain a **Copy prompt** button. It must aggregate every selected answer, every `Other` value, and every non-empty additional comment into one prompt and copy that prompt to the clipboard, with a manual-copy fallback when clipboard access is unavailable.
 
 The form must visibly tell the user to complete the round, click **Copy prompt**, and paste the copied prompt back into this chat. Do not rely on the button label or clipboard contents to imply the handoff.
 
-### Direct hand-back in bmux
-
-Opened with `open_file` and `worker: true`, the form is a page on a worker that bmux's `grill-forms` page plugin matches, and the page has `window.bmuxHandBack`. The template then reveals two more buttons: **Send to agent**, which submits the answers as your next turn, and **Prefill composer**, which leaves them in your prompt box for editing. Either one closes the form's pane once it lands. Whoever answers (a person, or another agent driving the page with browser tools) needs no pane id: bmux hands the answers to the pane that opened the form. Anywhere else `window.bmuxHandBack` is undefined, the buttons stay hidden, and **Copy prompt** is the whole handoff.
-
-Keep **Copy prompt** in every form regardless: it is the fallback when delivery fails (a hand-back takes at most 4096 characters).
-
 End every round with this exact response structure, filling in the round number:
 
-> Round `<n>` is open. Complete the form, then **Send to agent** (or **Copy prompt** and paste it back into this chat). I'll use your answers to update the design tree and open the next frontier.
+> Round `<n>` is open. Complete the form, then **Copy prompt** and paste it back into this chat. I'll use your answers to update the design tree and open the next frontier.
 
 Do not ask more questions while that form is pending.
 
