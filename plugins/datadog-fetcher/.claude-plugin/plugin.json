@@ -1,7 +1,7 @@
 {
   "name": "datadog-fetcher",
-  "version": "0.1.0",
-  "description": "Auto-delegating Haiku sub-agent that offloads Datadog MCP read calls (logs, metrics, monitors, traces/spans, events, hosts, services, dashboards, incidents, RUM, notebooks) out of the main conversation. Runs the queries, saves full raw payloads to tmp/datadog/, and returns a capped (~500-token) markdown summary. Read-only; requires the official datadog plugin's MCP server.",
+  "version": "0.2.0",
+  "description": "Auto-delegating Haiku sub-agent that offloads Datadog MCP read calls (logs, metrics, monitors, traces/spans, events, hosts, services, dashboards, incidents, RUM, notebooks) out of the main conversation. Runs the queries, saves full raw payloads to tmp/datadog/, and returns a capped (~500-token) markdown summary. Read-only; requires the official datadog plugin's MCP server or a gateway registered as gw.",
   "author": {
     "name": "Bryan Arendt",
     "github": "ctrlShiftBryan"

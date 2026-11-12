@@ -11,8 +11,8 @@
   "plugins": [
     {
       "name": "datadog-fetcher",
-      "description": "Offload Datadog MCP read calls to a Haiku-powered sub-agent to cut token cost. Auto-delegates whenever the main agent would query Datadog logs, metrics, monitors, traces/spans, events, hosts, services, dashboards, incidents, RUM, or notebooks. Runs the minimum set of read queries, saves full raw payloads to tmp/datadog/<timestamp>-<slug>.json, and returns a capped (~500-token) markdown summary with numbers, timestamps, example IDs, and caveats. Read-only — notebook/dashboard writes and auth/setup stay in the main agent. Requires the official datadog plugin's MCP server.",
-      "version": "0.1.0",
+      "description": "Offload Datadog MCP read calls to a Haiku-powered sub-agent to cut token cost. Auto-delegates whenever the main agent would query Datadog logs, metrics, monitors, traces/spans, events, hosts, services, dashboards, incidents, RUM, or notebooks. Runs the minimum set of read queries, saves full raw payloads to tmp/datadog/<timestamp>-<slug>.json, and returns a capped (~500-token) markdown summary with numbers, timestamps, example IDs, and caveats. Read-only — notebook/dashboard writes and auth/setup stay in the main agent. Requires the official datadog plugin's MCP server or a gateway registered as gw.",
+      "version": "0.2.0",
       "author": {
         "name": "Bryan Arendt",
         "github": "ctrlShiftBryan"

@@ -53,7 +53,7 @@ If the main agent needs more, it reads the JSON file or sends a narrower follow-
 
 ## Notes / Requirements
 
-- **Requires the official `datadog` plugin** from `claude-plugins-official` with its MCP server set up (`/ddsetup`) and authenticated (`/mcp`). If the server is missing or not authenticated the agent stops and tells you which command to run in the main session.
+- **Requires a Datadog MCP server**: either the official `datadog` plugin from `claude-plugins-official`, set up (`/ddsetup`) and authenticated (`/mcp`), or an MCP gateway registered as `gw` that prefixes Datadog's tools with `datadog_` (for example ToolHive's vMCP; tools appear as `mcp__gw__datadog_*`). If the server is missing or not authenticated the agent stops and tells you which command to run in the main session.
 - **Read-only.** Write tools (`create_datadog_notebook`, `edit_datadog_notebook`, `upsert_datadog_dashboard`, `submit_mcp_feedback`) and auth/setup flows stay in the main agent and are not in this agent's tool allowlist.
 - The agent never writes into your project; it only touches `tmp/datadog/`. Add `tmp/` to `.gitignore`.
 - It does not retry on network errors. Errors are returned verbatim for the main agent to handle.
