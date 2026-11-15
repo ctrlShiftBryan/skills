@@ -36,8 +36,13 @@ codex exec \
   --add-dir "$ARTIFACT_DIR" \
   -s danger-full-access \
   -o "$REPORT" \
-  "$(cat "$PROMPT")"
+  "$(cat "$PROMPT")" < /dev/null
 ```
+
+Two rules for every run:
+
+- **Absolute paths only.** Pass `-C`, `--add-dir`, `-o`, the prompt file and every path inside the prompt as absolute paths. The run changes directory before Codex starts, so a relative path points somewhere else.
+- **Close stdin.** End `codex exec` with `< /dev/null`. With stdin open, Codex waits on it and the run hangs.
 
 Use `-s danger-full-access` for GUI automation, iOS simulators, desktop app launching,
 screenshots, or access outside the repo. For non-GUI checks that only need the repo and
@@ -58,7 +63,7 @@ Where Google Chrome.app is kept for computer use (no person uses it, and no othe
    - If `getApp` fails or times out, retry once after 10 seconds. Then fall back to Safari (`open -a Safari`, `getApp('com.apple.Safari')`) and say so at the top of the report.
 4. Say in your summary which browser the run used.
 
-Computer use sends clicks, single key presses, scrolling and a left-button drag. It cannot hold a key or a mouse button, so checks that need held input (WASD movement, right-drag, hold-to-fly) come back blocked. Check those another way, or by hand.
+Computer use sends clicks, single key presses, scrolling and a left-button drag. It cannot hold a key or a mouse button, so checks that need held input (WASD movement, right-drag, hold-to-fly) come back BLOCKED. Leave them out of the Codex prompt and cover them with an automated test that drives the input in code.
 
 ## Prompt Requirements
 

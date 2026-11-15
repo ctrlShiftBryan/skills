@@ -36,6 +36,8 @@ codex -C "$PWD" review --base main - < "$PROMPT" > "$REPORT"
 codex -C "$PWD" review --commit <sha> - < "$PROMPT" > "$REPORT"
 ```
 
+Pass `-C` and the prompt and report files as absolute paths: the run changes directory before Codex starts. Always feed stdin from the prompt file (`- < "$PROMPT"`); an open stdin makes Codex wait forever.
+
 ## Review Prompt
 
 Ask Codex to use a code-review stance:

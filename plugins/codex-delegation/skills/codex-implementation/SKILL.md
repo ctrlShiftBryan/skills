@@ -32,8 +32,13 @@ codex exec \
   --add-dir "$ARTIFACT_DIR" \
   -s workspace-write \
   -o "$REPORT" \
-  "$(cat "$PROMPT")"
+  "$(cat "$PROMPT")" < /dev/null
 ```
+
+Two rules for every run:
+
+- **Absolute paths only.** Pass `-C`, `--add-dir`, `-o`, the prompt file and every path inside the prompt as absolute paths. The run changes directory before Codex starts, so a relative path points somewhere else.
+- **Close stdin.** End `codex exec` with `< /dev/null`. With stdin open, Codex waits on it and the run hangs.
 
 Use `-s workspace-write` by default. Use `-s danger-full-access` only when the implementation
 truly needs access outside the repo, app launch automation, simulator work, package manager
